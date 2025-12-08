@@ -1,8 +1,38 @@
-import type { NextConfig } from "next";
+// next.config.ts
+const { NextFederationPlugin } = require('@module-federation/nextjs-mf');
 
-const nextConfig: NextConfig = {
-  /* config options here */
-  reactStrictMode: true,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    reactStrictMode: true,
+    webpack(config, options) {
+        const { isServer } = options;
+
+        if (!isServer) {
+            config.plugins.push(
+                new NextFederationPlugin({
+                    name: 'ccdPage',
+                    filename: 'static/chunks/remoteEntry.js',
+                    exposes: {
+                        './ReportLoanUser': './components/custom-ui/ReportLoanUser.tsx',
+                    },
+                    shared: {
+                        react: {
+                            singleton: true,
+                            requiredVersion: false,
+                            eager: false,
+                        },
+                        'react-dom': {
+                            singleton: true,
+                            requiredVersion: false,
+                            eager: false,
+                        },
+                    },
+                })
+            );
+        }
+
+        return config;
+    },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
