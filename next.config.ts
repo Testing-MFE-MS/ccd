@@ -14,6 +14,8 @@ const nextConfig = {
                     filename: 'static/chunks/remoteEntry.js',
                     exposes: {
                         './ReportLoanUser': './components/custom-ui/ReportLoanUser.tsx',
+                        './UserCredit': './components/custom-ui/UserCredit.tsx',
+                        './WorkingPaper': './components/custom-ui/WorkingPaper.tsx',
                     },
                     shared: {
                         react: {
