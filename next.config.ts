@@ -1,7 +1,5 @@
-// next.config.ts
 const { NextFederationPlugin } = require('@module-federation/nextjs-mf');
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
     webpack(config, options) {
@@ -26,6 +24,25 @@ const nextConfig = {
                             requiredVersion: false,
                             eager: false,
                         },
+                        '@radix-ui/react-slot': {
+                            singleton: true,
+                            requiredVersion: false,
+                        },
+                        'class-variance-authority': {
+                            singleton: true,
+                            requiredVersion: false,
+                        },
+                        'clsx': {
+                            singleton: true,
+                            requiredVersion: false,
+                        },
+                        'tailwind-merge': {
+                            singleton: true,
+                            requiredVersion: false,
+                        },
+                    },
+                    extraOptions: {
+                        exposePages: false,
                     },
                 })
             );
