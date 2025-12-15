@@ -4,6 +4,9 @@ import NextFederationPlugin from '@module-federation/nextjs-mf';
 
 const nextConfig: NextConfig = {
     reactStrictMode: true,
+    // Remove standalone output for now - it requires specific setup with Module Federation
+    // output: 'standalone',
+
     webpack(config: Configuration, options: { isServer: boolean }) {
         const { isServer } = options;
 

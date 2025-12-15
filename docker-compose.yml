@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  ccd-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: ccd-nextjs-app
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - HOSTNAME=0.0.0.0
+      - NEXT_TELEMETRY_DISABLED=1
+      - NEXT_PRIVATE_LOCAL_WEBPACK=true
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - ccd-network
+    # Optional: Add volume for logs
+    volumes:
+      - ./logs:/app/logs
+    # Resource limits (adjust based on your needs)
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+
+networks:
+  ccd-network:
+    driver: bridge
+
+volumes:
+  logs:
+    driver: local
