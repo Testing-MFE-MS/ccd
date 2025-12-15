@@ -1,26 +1,55 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search, Filter, Plus, Edit, Trash2, ChevronLeft, ChevronRight, Users, History, FileText } from "lucide-react"
-import {userData} from "@/lib/mock-data/userData";
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Search,
+  Filter,
+  Plus,
+  Edit,
+  Trash2,
+  ChevronLeft,
+  ChevronRight,
+  Users,
+  History,
+  FileText,
+} from "lucide-react";
+import { userData } from "@/lib/mock-data/userData";
 
 const UserCreditComponent = () => {
-
-  const [activeUserTab, setActiveUserTab] = useState("user-list")
-  const [isUserDialogOpen, setIsUserDialogOpen] = useState(false)
+  const [activeUserTab, setActiveUserTab] = useState("user-list");
+  const [isUserDialogOpen, setIsUserDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     userId: "",
     staffName: "",
@@ -29,22 +58,24 @@ const UserCreditComponent = () => {
     isADUser: false,
     isLocked: false,
     remarks: "",
-  })
+  });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleCheckboxChange = (name: string, checked: boolean) => {
     setFormData((prev) => ({
       ...prev,
       [name]: checked,
-    }))
-  }
+    }));
+  };
 
   const handleResetForm = () => {
     setFormData({
@@ -55,14 +86,25 @@ const UserCreditComponent = () => {
       isADUser: false,
       isLocked: false,
       remarks: "",
-    })
-  }
+    });
+  };
 
   return (
     <div className="flex-1 -mt-14 overflow-auto">
-      <Tabs value={activeUserTab} onValueChange={setActiveUserTab} className="w-full">
+      <Tabs
+        value={activeUserTab}
+        onValueChange={setActiveUserTab}
+        className="w-full"
+      >
         <div className="flex items-center justify-between mb-6">
-          <TabsList className="grid w-fit grid-cols-2">
+          <TabsList
+            className=""
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+              width: "fit-content",
+            }}
+          >
             <TabsTrigger value="user-list" className="px-6">
               <Users className="mr-2 h-4 w-4" />
               User List
@@ -79,16 +121,29 @@ const UserCreditComponent = () => {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg">User (Live)</CardTitle>
-                <div className="flex items-center space-x-2">
+                <div
+                  className=""
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    columnGap: "0.5rem", // space-x-2 (8px)
+                  }}
+                >
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Search..." className="pl-10 bg-accent w-64" />
+                    <Input
+                      placeholder="Search..."
+                      className="pl-10 bg-accent w-64"
+                    />
                   </div>
                   <Button variant="outline" size="sm">
                     <Filter className="mr-2 h-4 w-4" />
                     Filter By...
                   </Button>
-                  <Dialog open={isUserDialogOpen} onOpenChange={setIsUserDialogOpen}>
+                  <Dialog
+                    open={isUserDialogOpen}
+                    onOpenChange={setIsUserDialogOpen}
+                  >
                     <DialogTrigger asChild>
                       <Button className="bg-primary hover:bg-primary/90">
                         <Plus className="mr-2 h-4 w-4" />
@@ -97,34 +152,67 @@ const UserCreditComponent = () => {
                     </DialogTrigger>
                     <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                       <DialogHeader>
-                        <DialogTitle className="bg-primary rounded-t-md text-primary-foreground p-3 -m-6 mb-4">
+                        <DialogTitle
+                          className="bg-primary rounded-t-md text-primary-foreground p-3 -m-6 mb-4"
+                          style={{
+                            padding: "0.75rem", // p-3 (12px)
+                            margin: "-1.5rem", // -m-6 (-24px)
+                            marginBottom: "1rem", // mb-4 (16px)
+                            borderTopLeftRadius: "0.375rem", // rounded-t-md
+                            borderTopRightRadius: "0.375rem",
+                          }}
+                        >
                           User (New)
                         </DialogTitle>
                       </DialogHeader>
                       <div className="space-y-4">
                         <div>
                           <Label htmlFor="user-id">@ID :</Label>
-                          <Input id="user-id" className="mt-1 bg-background w-full" />
+                          <Input
+                            id="user-id"
+                            className="mt-1 bg-background w-full"
+                          />
                         </div>
 
                         <Tabs defaultValue="details" className="w-full">
-                          <TabsList className="grid w-full grid-cols-2">
-                            <TabsTrigger value="details" className="flex items-center gap-2">
+                          <TabsList
+                            className=""
+                            style={{
+                              display: "grid",
+                              gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                              width: "100%",
+                            }}
+                          >
+                            <TabsTrigger
+                              value="details"
+                              className="flex items-center gap-2"
+                            >
                               <FileText className="h-4 w-4" />
                               Details
                             </TabsTrigger>
-                            <TabsTrigger value="audit" className="flex items-center gap-2">
+                            <TabsTrigger
+                              value="audit"
+                              className="flex items-center gap-2"
+                            >
                               <Users className="h-4 w-4" />
                               Audit
                             </TabsTrigger>
                           </TabsList>
 
-                          <TabsContent value="details" className="space-y-4 mt-4">
+                          <TabsContent
+                            value="details"
+                            className="space-y-4 mt-4"
+                          >
                             <div className="flex items-center space-x-2">
                               <Checkbox
                                 id="is-ad-user"
                                 checked={formData.isADUser}
-                                onCheckedChange={(checked) => handleCheckboxChange("isADUser", checked as boolean)}
+                                onCheckedChange={(checked) =>
+                                  handleCheckboxChange(
+                                    "isADUser",
+                                    checked as boolean
+                                  )
+                                }
                               />
                               <Label htmlFor="is-ad-user">Is AD User</Label>
                             </div>
@@ -132,7 +220,8 @@ const UserCreditComponent = () => {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                               <div>
                                 <Label htmlFor="user-id-field">
-                                  User ID <span className="text-red-500">*</span>
+                                  User ID{" "}
+                                  <span className="text-red-500">*</span>
                                 </Label>
                                 <Input
                                   id="user-id-field"
@@ -168,11 +257,17 @@ const UserCreditComponent = () => {
 
                             <div>
                               <Label htmlFor="profile-name">
-                                Profile Name <span className="text-red-500">*</span>
+                                Profile Name{" "}
+                                <span className="text-red-500">*</span>
                               </Label>
                               <Select
                                 value={formData.profileName}
-                                onValueChange={(value) => setFormData((prev) => ({ ...prev, profileName: value }))}
+                                onValueChange={(value) =>
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    profileName: value,
+                                  }))
+                                }
                               >
                                 <SelectTrigger className="mt-1 w-full">
                                   <SelectValue placeholder="Select profile..." />
@@ -180,7 +275,9 @@ const UserCreditComponent = () => {
                                 <SelectContent>
                                   <SelectItem value="admin">Admin</SelectItem>
                                   <SelectItem value="user">User</SelectItem>
-                                  <SelectItem value="manager">Manager</SelectItem>
+                                  <SelectItem value="manager">
+                                    Manager
+                                  </SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
@@ -189,7 +286,12 @@ const UserCreditComponent = () => {
                               <Checkbox
                                 id="is-locked"
                                 checked={formData.isLocked}
-                                onCheckedChange={(checked) => handleCheckboxChange("isLocked", checked as boolean)}
+                                onCheckedChange={(checked) =>
+                                  handleCheckboxChange(
+                                    "isLocked",
+                                    checked as boolean
+                                  )
+                                }
                               />
                               <Label htmlFor="is-locked">Is Locked</Label>
                             </div>
@@ -208,20 +310,24 @@ const UserCreditComponent = () => {
 
                           <TabsContent value="audit" className="space-y-4 mt-4">
                             <div className="text-center text-muted-foreground py-8">
-                              Audit information will be displayed here after user creation.
+                              Audit information will be displayed here after
+                              user creation.
                             </div>
                           </TabsContent>
                         </Tabs>
 
                         <div className="flex flex-wrap justify-end gap-2 pt-4">
-                          <Button variant="outline" onClick={() => setIsUserDialogOpen(false)}>
+                          <Button
+                            variant="outline"
+                            onClick={() => setIsUserDialogOpen(false)}
+                          >
                             Cancel
                           </Button>
                           <Button
                             variant="outline"
                             className="border-blue-500 text-blue-500 hover:bg-blue-50 bg-transparent"
                             onClick={() => {
-                              handleResetForm()
+                              handleResetForm();
                             }}
                           >
                             Reset
@@ -229,8 +335,8 @@ const UserCreditComponent = () => {
                           <Button
                             className="bg-primary hover:bg-primary/90"
                             onClick={() => {
-                              setIsUserDialogOpen(false)
-                              handleResetForm()
+                              setIsUserDialogOpen(false);
+                              handleResetForm();
                             }}
                           >
                             Submit
@@ -239,7 +345,9 @@ const UserCreditComponent = () => {
                       </div>
                     </DialogContent>
                   </Dialog>
-                  <span className="text-sm text-muted-foreground">21-40 of 1462</span>
+                  <span className="text-sm text-muted-foreground">
+                    21-40 of 1462
+                  </span>
                 </div>
               </div>
             </CardHeader>
@@ -248,13 +356,21 @@ const UserCreditComponent = () => {
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-primary text-primary-foreground hover:bg-primary">
-                      <TableHead className="text-primary-foreground font-semibold">No</TableHead>
-                      <TableHead className="text-primary-foreground font-semibold">User ID</TableHead>
-                      <TableHead className="text-primary-foreground font-semibold">User Name</TableHead>
+                      <TableHead className="text-primary-foreground font-semibold">
+                        No
+                      </TableHead>
+                      <TableHead className="text-primary-foreground font-semibold">
+                        User ID
+                      </TableHead>
+                      <TableHead className="text-primary-foreground font-semibold">
+                        User Name
+                      </TableHead>
                       <TableHead className="text-primary-foreground font-semibold hidden md:table-cell">
                         Profile Name
                       </TableHead>
-                      <TableHead className="text-primary-foreground font-semibold">Is Locked</TableHead>
+                      <TableHead className="text-primary-foreground font-semibold">
+                        Is Locked
+                      </TableHead>
                       <TableHead className="text-primary-foreground font-semibold hidden lg:table-cell">
                         Remark
                       </TableHead>
@@ -270,7 +386,9 @@ const UserCreditComponent = () => {
                       <TableHead className="text-primary-foreground font-semibold hidden xl:table-cell">
                         Cur.No.
                       </TableHead>
-                      <TableHead className="text-primary-foreground font-semibold">Action</TableHead>
+                      <TableHead className="text-primary-foreground font-semibold">
+                        Action
+                      </TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -279,24 +397,47 @@ const UserCreditComponent = () => {
                         <TableCell className="font-medium">{user.id}</TableCell>
                         <TableCell>{user.userId}</TableCell>
                         <TableCell>{user.userName}</TableCell>
-                        <TableCell className="hidden md:table-cell">{user.profileName}</TableCell>
-                        <TableCell>
-                          <Badge variant={user.isLocked === "T" ? "destructive" : "secondary"}>{user.isLocked}</Badge>
-                        </TableCell>
-                        <TableCell className="max-w-32 truncate hidden lg:table-cell">{user.remark}</TableCell>
                         <TableCell className="hidden md:table-cell">
-                          <Badge variant="outline" className="text-green-600 border-green-600">
+                          {user.profileName}
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            variant={
+                              user.isLocked === "T"
+                                ? "destructive"
+                                : "secondary"
+                            }
+                          >
+                            {user.isLocked}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="max-w-32 truncate hidden lg:table-cell">
+                          {user.remark}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <Badge
+                            variant="outline"
+                            className="text-green-600 border-green-600"
+                          >
                             {user.isADUser}
                           </Badge>
                         </TableCell>
-                        <TableCell className="text-sm hidden lg:table-cell">{user.bookedDate}</TableCell>
+                        <TableCell className="text-sm hidden lg:table-cell">
+                          {user.bookedDate}
+                        </TableCell>
                         <TableCell className="text-sm max-w-40 truncate hidden xl:table-cell">
                           {user.inputter}
                         </TableCell>
-                        <TableCell className="text-sm max-w-40 truncate hidden xl:table-cell">{user.curNo}</TableCell>
+                        <TableCell className="text-sm max-w-40 truncate hidden xl:table-cell">
+                          {user.curNo}
+                        </TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-1">
-                            <Button variant="outline" size="sm" className="h-8 w-8 p-0 bg-transparent">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-8 w-8 p-0 bg-transparent"
+                            >
                               <Edit className="h-3 w-3" />
                             </Button>
                             <Button
@@ -335,13 +476,18 @@ const UserCreditComponent = () => {
                 <div className="flex items-center space-x-2">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Search..." className="pl-10 w-64 bg-accent " />
+                    <Input
+                      placeholder="Search..."
+                      className="pl-10 w-64 bg-accent "
+                    />
                   </div>
                   <Button variant="outline" size="sm">
                     <Filter className="mr-2 h-4 w-4" />
                     Filter By...
                   </Button>
-                  <span className="text-sm text-muted-foreground">21-40 of 1462</span>
+                  <span className="text-sm text-muted-foreground">
+                    21-40 of 1462
+                  </span>
                 </div>
               </div>
             </CardHeader>
@@ -350,13 +496,21 @@ const UserCreditComponent = () => {
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-primary text-primary-foreground hover:bg-primary">
-                      <TableHead className="text-primary-foreground font-semibold">No</TableHead>
-                      <TableHead className="text-primary-foreground font-semibold">User ID</TableHead>
-                      <TableHead className="text-primary-foreground font-semibold">User Name</TableHead>
+                      <TableHead className="text-primary-foreground font-semibold">
+                        No
+                      </TableHead>
+                      <TableHead className="text-primary-foreground font-semibold">
+                        User ID
+                      </TableHead>
+                      <TableHead className="text-primary-foreground font-semibold">
+                        User Name
+                      </TableHead>
                       <TableHead className="text-primary-foreground font-semibold hidden md:table-cell">
                         Profile Name
                       </TableHead>
-                      <TableHead className="text-primary-foreground font-semibold">Is Locked</TableHead>
+                      <TableHead className="text-primary-foreground font-semibold">
+                        Is Locked
+                      </TableHead>
                       <TableHead className="text-primary-foreground font-semibold hidden lg:table-cell">
                         Remark
                       </TableHead>
@@ -372,7 +526,9 @@ const UserCreditComponent = () => {
                       <TableHead className="text-primary-foreground font-semibold hidden xl:table-cell">
                         Cur.No.
                       </TableHead>
-                      <TableHead className="text-primary-foreground font-semibold">Action</TableHead>
+                      <TableHead className="text-primary-foreground font-semibold">
+                        Action
+                      </TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -381,24 +537,47 @@ const UserCreditComponent = () => {
                         <TableCell className="font-medium">{user.id}</TableCell>
                         <TableCell>{user.userId}</TableCell>
                         <TableCell>{user.userName}</TableCell>
-                        <TableCell className="hidden md:table-cell">{user.profileName}</TableCell>
-                        <TableCell>
-                          <Badge variant={user.isLocked === "T" ? "destructive" : "secondary"}>{user.isLocked}</Badge>
-                        </TableCell>
-                        <TableCell className="max-w-32 truncate hidden lg:table-cell">{user.remark}</TableCell>
                         <TableCell className="hidden md:table-cell">
-                          <Badge variant="outline" className="text-green-600 border-green-600">
+                          {user.profileName}
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            variant={
+                              user.isLocked === "T"
+                                ? "destructive"
+                                : "secondary"
+                            }
+                          >
+                            {user.isLocked}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="max-w-32 truncate hidden lg:table-cell">
+                          {user.remark}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <Badge
+                            variant="outline"
+                            className="text-green-600 border-green-600"
+                          >
                             {user.isADUser}
                           </Badge>
                         </TableCell>
-                        <TableCell className="text-sm hidden lg:table-cell">{user.bookedDate}</TableCell>
+                        <TableCell className="text-sm hidden lg:table-cell">
+                          {user.bookedDate}
+                        </TableCell>
                         <TableCell className="text-sm max-w-40 truncate hidden xl:table-cell">
                           {user.inputter}
                         </TableCell>
-                        <TableCell className="text-sm max-w-40 truncate hidden xl:table-cell">{user.curNo}</TableCell>
+                        <TableCell className="text-sm max-w-40 truncate hidden xl:table-cell">
+                          {user.curNo}
+                        </TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-1">
-                            <Button variant="outline" size="sm" className="h-8 w-8 p-0 bg-transparent">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-8 w-8 p-0 bg-transparent"
+                            >
                               <Edit className="h-3 w-3" />
                             </Button>
                             <Button
@@ -430,6 +609,6 @@ const UserCreditComponent = () => {
         </TabsContent>
       </Tabs>
     </div>
-  )
-}
+  );
+};
 export default UserCreditComponent;
