@@ -1,57 +1,122 @@
-const { NextFederationPlugin } = require('@module-federation/nextjs-mf');
+// const { NextFederationPlugin } = require('@module-federation/nextjs-mf');
 
-const nextConfig = {
-    reactStrictMode: true,
-    webpack(config, options) {
-        const { isServer } = options;
+// const nextConfig = {
+//     reactStrictMode: true,
+//     webpack(config, options) {
+//         const { isServer } = options;
 
-        if (!isServer) {
-            config.plugins.push(
-                new NextFederationPlugin({
-                    name: 'ccdPage',
-                    filename: 'static/chunks/remoteEntry.js',
-                    exposes: {
-                        './ReportLoanUser': './components/custom-ui/ReportLoanUser.tsx',
-                        './UserCredit': './components/custom-ui/UserCredit.tsx',
-                        './WorkingPaper': './components/custom-ui/WorkingPaper.tsx',
-                    },
-                    shared: {
-                        react: {
-                            singleton: true,
-                            requiredVersion: false,
-                            eager: false,
-                        },
-                        'react-dom': {
-                            singleton: true,
-                            requiredVersion: false,
-                            eager: false,
-                        },
-                        '@radix-ui/react-slot': {
-                            singleton: true,
-                            requiredVersion: false,
-                        },
-                        'class-variance-authority': {
-                            singleton: true,
-                            requiredVersion: false,
-                        },
-                        'clsx': {
-                            singleton: true,
-                            requiredVersion: false,
-                        },
-                        'tailwind-merge': {
-                            singleton: true,
-                            requiredVersion: false,
-                        },
-                    },
-                    extraOptions: {
-                        exposePages: false,
-                    },
-                })
-            );
-        }
+//         if (!isServer) {
+//             config.plugins.push(
+//                 new NextFederationPlugin({
+//                     name: 'ccdPage',
+//                     filename: 'static/chunks/remoteEntry.js',
+//                     exposes: {
+//                         './ReportLoanUser': './components/custom-ui/ReportLoanUser.tsx',
+//                         './UserCredit': './components/custom-ui/UserCredit.tsx',
+//                         './WorkingPaper': './components/custom-ui/WorkingPaper.tsx',
+//                     },
+//                     shared: {
+//                         react: {
+//                             singleton: true,
+//                             requiredVersion: false,
+//                             eager: false,
+//                         },
+//                         'react-dom': {
+//                             singleton: true,
+//                             requiredVersion: false,
+//                             eager: false,
+//                         },
+//                         '@radix-ui/react-slot': {
+//                             singleton: true,
+//                             requiredVersion: false,
+//                         },
+//                         'class-variance-authority': {
+//                             singleton: true,
+//                             requiredVersion: false,
+//                         },
+//                         'clsx': {
+//                             singleton: true,
+//                             requiredVersion: false,
+//                         },
+//                         'tailwind-merge': {
+//                             singleton: true,
+//                             requiredVersion: false,
+//                         },
+//                     },
+//                     extraOptions: {
+//                         exposePages: false,
+//                     },
+//                 })
+//             );
+//         }
 
-        return config;
-    },
-};
+//         return config;
+//     },
+// };
 
-module.exports = nextConfig;
+// module.exports = nextConfig;
+
+
+import type { NextConfig } from "next"
+import type { Configuration } from "webpack"
+import { NextFederationPlugin } from "@module-federation/nextjs-mf"
+
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+
+  webpack(
+    config: Configuration,
+    options: { isServer: boolean }
+  ) {
+    const { isServer } = options
+
+    if (!isServer && config.plugins) {
+      config.plugins.push(
+        new NextFederationPlugin({
+          name: "ccdPage",
+          filename: "static/chunks/remoteEntry.js",
+          exposes: {
+            "./ReportLoanUser": "./components/custom-ui/ReportLoanUser.tsx",
+            "./UserCredit": "./components/custom-ui/UserCredit.tsx",
+            "./WorkingPaper": "./components/custom-ui/WorkingPaper.tsx",
+          },
+          shared: {
+            react: {
+              singleton: true,
+              requiredVersion: false,
+              eager: false,
+            },
+            "react-dom": {
+              singleton: true,
+              requiredVersion: false,
+              eager: false,
+            },
+            "@radix-ui/react-slot": {
+              singleton: true,
+              requiredVersion: false,
+            },
+            "class-variance-authority": {
+              singleton: true,
+              requiredVersion: false,
+            },
+            clsx: {
+              singleton: true,
+              requiredVersion: false,
+            },
+            "tailwind-merge": {
+              singleton: true,
+              requiredVersion: false,
+            },
+          },
+          extraOptions: {
+            exposePages: false,
+          },
+        })
+      )
+    }
+
+    return config
+  },
+}
+
+export default nextConfig
